@@ -1,0 +1,216 @@
+from .first_peaks_method import MIDI_Detector
+#from least_squares_method import Highest_Peaks_MIDI_Detector
+import sys
+import os
+import numpy as np
+#from least_squares_first_peaks_2 import MIDI_Detector_Least_Squares_2
+#from least_squares_highest_peaks_2 import Highest_Peaks_Least_Squares
+
+
+class NotePlotter(object):
+    """
+        Class used for plotting sheet notes given MIDI note numbers.
+    """
+
+
+    def __init__(self, wav_file):
+        print ('Inside Note Plotter constructor')
+        self.wav_file = wav_file
+        self.output_file = wav_file[:-3] + 'ly'
+        self.number2note = {
+            21: 'a,,,',
+            22: 'ais,,,',
+            23: 'b,,,',
+            24: 'c,,',
+            25: 'cis,,',
+            26: 'd,,',
+            27: 'dis,,',
+            28: 'e,,',
+            29: 'f,,',
+            30: 'fis,,',
+            31: 'g,,',
+            32: 'gis,,',
+            33: 'a,,',
+            34: 'ais,,',
+            35: 'b,,',
+            36: 'c,',
+            37: 'cis,',
+            38: 'd,',
+            39: 'dis,',
+            40: 'e,',
+            41: 'f,',
+            42: 'fis,',
+            43: 'g,',
+            44: 'gis,',
+            45: 'a,',
+            46: 'ais,',
+            47: 'b,',
+            48: 'c',
+            49: 'cis',
+            50: 'd',
+            51: 'dis',
+            52: 'e',
+            53: 'f',
+            54: 'fis',
+            55: 'g',
+            56: 'gis',
+            57: 'a',
+            58: 'ais',
+            59: 'b',
+            60: 'c\'',
+            61: 'cis\'',
+            62: 'd\'',
+            63: 'dis\'',
+            64: 'e\'',
+            65: 'f\'',
+            66: 'fis\'',
+            67: 'g\'',
+            68: 'gis\'',
+            69: 'a\'',
+            70: 'ais\'',
+            71: 'b\'',
+            72: 'c\'\'',
+            73: 'cis\'\'',
+            74: 'd\'\'',
+            75: 'dis\'\'',
+            76: 'e\'\'',
+            77: 'f\'\'',
+            78: 'fis\'\'',
+            79: 'g\'\'',
+            80: 'gis\'\'',
+            81: 'a\'\'',
+            82: 'ais\'\'',
+            83: 'b\'\'',
+            84: 'c\'\'\'',
+            85: 'cis\'\'\'',
+            86: 'd\'\'\'',
+            87: 'dis\'\'\'',
+            88: 'e\'\'\'',
+            89: 'f\'\'\'',
+            90: 'fis\'\'\'',
+            91: 'g\'\'\'',
+            92: 'gis\'\'\'',
+            93: 'a\'\'\'',
+            94: 'ais\'\'\'',
+            95: 'b\'\'\'',
+            96: 'c\'\'\'\'',
+            97: 'cis\'\'\'',
+            98: 'd\'\'\'',
+            99: 'dis\'\'\'',
+            100: 'e\'\'\'',
+            101: 'f\'\'\'',
+            102: 'fis\'\'\'',
+            103: 'g\'\'\'',
+            104: 'gis\'\'\'',
+            105: 'a\'\'\'',
+            106: 'ais\'\'\'',
+            107: 'b\'\'\'',
+            108: 'c\'\'\'\'',
+        }
+
+
+    def plot_notes_violin_stuff(self):
+        """
+            Given .wav file detect MIDI notes, convert them into corresponding
+            character names. Afterwards plot and save into an output file.
+            The class uses lilypond library for drawing sheet notes.
+        """
+
+        #detector = MIDI_Detector(self.wav_file)
+        detector = MIDI_Detector(self.wav_file)
+        midi_numbers = detector.detect_MIDI_notes()
+        lilypond_text = '\\version \"2.14.2\" \n{ \n  \\clef treble \n'
+        for n in midi_numbers:
+            if n in self.number2note.keys():
+                lilypond_text += self.number2note[n] + ' '
+        lilypond_text += '\n}'
+        with open(self.output_file, 'w') as f:
+            f.write(lilypond_text)
+        command = "lilypond\\usr\\bin\\lilypond.exe "
+        command += self.output_file
+        print (command)
+        os.system(command)
+
+
+    def plot_notes(self):
+        detector = MIDI_Detector(self.wav_file)
+        #detector = Highest_Peaks_MIDI_Detector(self.wav_file)
+        midi_numbers = detector.detect_MIDI_notes()
+        lilypond_text = '\\version \"2.14.2\" \n'
+        lilypond_text += '  \\new PianoStaff { \n'
+        lilypond_text += '    \\autochange { \n <'
+        for n in midi_numbers:
+            if n in self.number2note.keys():
+                lilypond_text += self.number2note[n] + ' '
+        lilypond_text += '>    \n}  \n}'
+        with open(self.output_file, 'w') as f:
+            f.write(lilypond_text)
+        command = "LilyPond\\usr\\bin\\lilypond.exe"
+        command += self.output_file
+        print (command)
+        os.system(command)
+
+
+    def plot_multiple_notes(self, directory):
+        """
+            Plots notes using LilyPond library. The notes are on a left and righ
+            hand staff (piano) and may be plotted as chords (multiple notes
+            played simultaneously). The generated sheet notes are named after
+            the music file.
+        """
+
+        lilypond_text = '\\version \"2.14.2\" \n'
+        lilypond_text += '\\score { \n'
+        lilypond_text += '  \\new PianoStaff { \n'
+        lilypond_text += '    \\autochange { \n'
+
+        numOfFiles = len(os.listdir(directory))
+        #for file_path in sorted(os.listdir(directory)):
+        durations = []  # 每个音符的时长
+        midi_notes = [] # 每个音符midi值
+        max_duration = 0
+        for i in range(numOfFiles):
+            file_path = 'note' + str(i) + '.wav'
+            detector = MIDI_Detector(directory + '/' + file_path)
+            midi_numbers, du = detector.detect_MIDI_notes()
+            print ('File: ' + str(file_path) + ' MIDI: ' + str(midi_numbers))
+            if len(midi_numbers) > 0:
+                # lilypond_text += ' < '
+                for n in midi_numbers:
+                    if n in self.number2note.keys():
+                        midi_notes.append(n)
+                        durations.append(du)
+                        if du > max_duration:
+                            max_duration = du
+        durations = np.array(durations)
+        durations /= max_duration
+                        # lilypond_text += self.number2note[n] + ' '
+                # lilypond_text += ' >'
+
+        for i in range(len(midi_notes)):
+            lilypond_text += ' < '
+            lilypond_text += self.number2note[midi_notes[i]] + " "
+            lilypond_text += ' >'
+        lilypond_text += '    \n}  \n}'
+        lilypond_text += '\\layout { } \n \\midi { }  \n}'
+        with open(self.output_file, 'w') as f:
+            f.write(lilypond_text)
+        command = os.getcwd() + "\\melody_note\\work\\wav_note\\LilyPond\\usr\\bin\\lilypond.exe "
+        command += self.output_file
+        print (command)
+        os.system(command)
+        name = self.output_file.split('\\')[-1].split('.')[0]
+        #command = "move " + name + '.pdf examples\\' + name + '.pdf'
+        command = "move " + os.getcwd() +'\\' + name + '.pdf ' + os.getcwd() + '\\melody_note\\work\\note_pdf\\' + name + '.pdf'
+        os.system(command)
+        print(command)
+        #command = "move " + name + '.mid examples\\' + name + '.mid'
+        command = "move " + os.getcwd() +'\\' + name + '.mid ' + os.getcwd() + '\\melody_note\\work\\note_pdf\\' + name + '.mid'
+        os.system(command)
+        print(command)
+        return midi_notes, durations
+
+if __name__ == '__main__':
+    wav_file = sys.argv[1]
+    note_plotter = NotePlotter(wav_file)
+    note_plotter.plot_multiple_notes()

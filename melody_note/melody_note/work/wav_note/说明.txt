@@ -1,0 +1,29 @@
+使用说明：
+一、.py文件
+1. music_transcriber.py 主文件，定义了音频转换的主函数
+2. onset_frames_split.py 端点检测
+3. speech_enhance.py 降噪
+4. nextpow2.py 辅助函数
+5. plotNotes.py 音符检测+打谱
+6. first_peaks_method.py 音符检测
+
+二、文件夹
+1. Lilypond，打谱软件
+2. frames，辅助文件夹，用于保存端点检测后的分段音频
+3. examples，用于存放.wav音频和生成的.ly文件，.mid文件，.pdf乐谱
+
+三、music_note单独测试使用说明
+调用python music_transcriber.py examples/twinkle_short.wav
+对examples文件夹下的twinkle_short.wav文件进行音符识别
+输出对应twinkle_short.ly， twinkle_short.mid， twinkle_short.pdf（在examples文件夹中）
+
+四、调用music_note
+假如music_file为待处理的.wav文件路径名
+import  music_transcriber（music_transcriber.py）
+transcriber = MusicTranscriber(music_file)
+notes, durations = transcriber.transcribe()
+返回：1. notes, 时间顺序的音符
+           2.durations, 对应音符的持续时长，最长为1
+
+注：没有考虑空拍
+

@@ -1,0 +1,1 @@
+prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8

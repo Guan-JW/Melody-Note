@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+
+<title>Melody_note</title>
+<script>
+var Tips='录制前请先打开录音，再点击录音按钮'+unescape("😎");
+console.log(Tips);
+</script>
+
+
+<!--
+【1】引入框架文件，注意自己使用时应当自己把源码clone下来，然后通过src="/src/recorder-core.js"引入，这里为了方便copy文件测试起见，使用了JsDelivr CDN。
+另外：[1.1]、[1.2]可以合并为使用"/recorder.mp3.min.js"，这个文件为压缩版大幅减小文件体积，已经包含了这3个源码文件
+-->
+
+<!-- 【1.1】引入核心文件 -->
+<script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/recorder-core.js"></script>
+
+<!-- 【1.2】引入相应格式支持文件；如果需要多个格式支持，把这些格式的编码引擎js文件放到后面统统加载进来即可 -->
+<script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/engine/mp3.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/engine/mp3-engine.js"></script>
+
+<!-- 【1.3】引入可选的扩展支持项，如果不需要这些扩展功能可以不引入 -->
+<script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/extensions/frequency.histogram.view.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/extensions/lib.fft.js"></script>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="{% static 'css/owl.carousel.min.css'%}" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Lobster|Poppins:400,600,700&display=swap" rel="stylesheet">
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 512.009 512.009" style="enable-background:new 0 0 512.009 512.009;"
+              xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M370.634,395.38l4.715-0.917c5.547-1.067,136.661-26.773,136.661-95.808c0-21.461-6.933-36.8-20.651-45.611
+			c-19.797-12.757-47.531-7.168-64.683-1.707v-16.683c0-17.643-14.357-32-32-32H96.009c-17.643,0-32,14.357-32,32v21.333
+			c0,63.637,29.675,122.027,78.827,160H10.676c-4.309,0-8.213,2.603-9.856,6.592c-1.664,3.989-0.747,8.576,2.304,11.627
+			l23.915,23.915c14.123,14.101,32.875,21.867,52.8,21.867h330.987c19.648,0,38.891-7.979,52.8-21.867l23.915-23.915
+			c3.051-3.051,3.968-7.637,2.304-11.627c-1.664-3.989-5.547-6.592-9.856-6.592H347.807
+			C356.02,409.673,363.593,402.783,370.634,395.38z M425.418,274.313c13.483-5.12,40.405-12.373,54.4-3.307
+			c7.317,4.672,10.859,13.739,10.859,27.648c0,35.477-59.307,59.221-98.496,69.931C410.783,340.809,422.324,308.596,425.418,274.313
+			z" />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M328.415,113.332c17.344-21.675,17.344-55.616,0-77.291c-3.733-4.608-10.432-5.312-14.997-1.664
+			c-4.608,3.669-5.333,10.389-1.664,14.997c11.008,13.717,11.008,36.907-0.043,50.667c-17.365,21.653-17.365,55.616-0.021,77.291
+			c2.133,2.645,5.205,4.011,8.341,4.011c2.347,0,4.715-0.768,6.677-2.347c4.608-3.669,5.333-10.389,1.664-14.997
+			C317.364,150.281,317.364,127.092,328.415,113.332z" />
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M264.308,113.332c17.365-21.675,17.365-55.616,0-77.291c-3.669-4.587-10.368-5.333-14.997-1.664
+			c-4.608,3.669-5.333,10.389-1.664,14.997c10.987,13.717,10.987,36.907-0.021,50.667c-17.365,21.653-17.365,55.616,0,77.291
+			c2.112,2.645,5.205,4.011,8.341,4.011c2.325,0,4.693-0.768,6.656-2.347c4.587-3.669,5.333-10.389,1.664-14.997
+			C253.3,150.281,253.3,127.092,264.308,113.332z" />
+                </g>
+              </g>
+
+            </svg>
+            <span>
+              Melody_note
+            </span>
+          </a>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="s-1"> </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html"> About </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="product.html"> Products </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link last_link" href="testimonial.html"> Testimonial </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ">
+            <div class="detail_box">
+              <h1>
+                Welcome to <br>
+                Our Melody Note
+              </h1>
+              <p> You can record the audio and get its score.
+                  If you want, you can also turn it into music to play.</p>
+
+
+
+               <div class="main">
+
+                    <div class="mainBox">
+                        <!-- 按钮控制区域 -->
+                        <div class="pd btns">
+                            <div>
+                                <button onclick="recOpen()" style="background-color:#356E7F;height:50px;width:200px;margin-right:10px;color: white ">打开录音,请求权限</button>
+                                <button onclick="recClose()" style="background-color:#356E7F;height:50px;width:200px;margin-right:0;color: white ">关闭录音,释放资源</button>
+                            </div>
+
+                            <button onclick="recStart()" style="background-color:#356E7F;height:50px;width:100px;color: white">录制</button>
+                            <button onclick="recStop()" style="background-color:#356E7F;height:50px;width:100px;color: white ">停止</button>
+
+
+
+                            <span style="...">
+                                <button onclick="getmusic()"  style="background-color:#356E7F;height:50px;width:100px;color: white">生成音乐</button>
+                                <button onclick="recPlay()"  style="background-color:#356E7F;height:50px;width:100px;color: white">播放</button>
+                            </span>
+
+
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- 日志输出区域 -->
+                    <div class="mainBox">
+                        <div class="reclog"></div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+          </div>
+          <div class="col-lg-5 col-md-6 offset-lg-1">
+            <div class="img_container">
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="img-box">
+                      <img src="{% static 'images/slider-img1.png'%}" alt="">
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="img-box">
+                      <img src="{% static 'images/slider-img2.png'%}" alt="">
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.png'%}" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel_btn-box">
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span>
+                      <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                    </span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span>
+                      <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                    </span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/owl.carousel.min.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
+
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script src="/static/js/owl.carousel.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+
+<script>
+    $(".btn-savename").click(function(){
+        $.ajax({
+            type:"GET",
+            contentType:"application/json;charset=UTF-8",
+            url:"/set_name",
+            success:function(result){
+                console.log("success!")
+                console.log(result)
+                alert("设置成功！")
+            },
+            error:function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+            }
+        })
+    })
+</script>
+
+
+<!-- 【3】实现录音逻辑 -->
+<script>
+var rec,wave,recBlob;
+
+
+/**调用open打开录音请求好录音权限**/
+var recOpen=function(){//一般在显示出录音按钮或相关的录音界面时进行此方法调用，后面用户点击开始录音时就能畅通无阻了
+	rec=null;
+	wave=null;
+	recBlob=null;
+	var newRec=Recorder({
+		type:"mp3",sampleRate:16000,bitRate:16 //mp3格式，指定采样率hz、比特率kbps，其他参数使用默认配置；注意：是数字的参数必须提供数字，不要用字符串；需要使用的type类型，需提前把格式支持文件加载进来，比如使用wav格式需要提前加载wav.js编码引擎
+		,onProcess:function(buffers,powerLevel,bufferDuration,bufferSampleRate,newBufferIdx,asyncEnd){
+			//录音实时回调，大约1秒调用12次本回调
+			document.querySelector(".recpowerx").style.width=powerLevel+"%";
+			document.querySelector(".recpowert").innerText=bufferDuration+" / "+powerLevel;
+
+			//可视化图形绘制
+			wave.input(buffers[buffers.length-1],powerLevel,bufferSampleRate);
+		}
+	});
+
+	createDelayDialog(); //我们可以选择性的弹一个对话框：为了防止移动端浏览器存在第三种情况：用户忽略，并且（或者国产系统UC系）浏览器没有任何回调，此处demo省略了弹窗的代码
+	newRec.open(function(){//打开麦克风授权获得相关资源
+		dialogCancel(); //如果开启了弹框，此处需要取消
+
+		rec=newRec;
+
+		//此处创建这些音频可视化图形绘制浏览器支持妥妥的
+		wave=Recorder.FrequencyHistogramView({elem:".recwave"});
+
+		reclog("已打开录音，可以点击录制开始录音了",2);
+	},function(msg,isUserNotAllow){//用户拒绝未授权或不支持
+		dialogCancel(); //如果开启了弹框，此处需要取消
+		reclog((isUserNotAllow?"UserNotAllow，":"")+"打开录音失败："+msg,1);
+	});
+
+	window.waitDialogClick=function(){
+		dialogCancel();
+		reclog("打开失败：权限请求被忽略，<span style='color:#f00'>用户主动点击的弹窗</span>",1);
+	};
+};
+
+
+
+/**关闭录音，释放资源**/
+function recClose(){
+	if(rec){
+		rec.close();
+		reclog("已关闭");
+	}else{
+		reclog("未打开录音",1);
+	};
+};
+
+
+
+/**开始录音**/
+function recStart(){//打开了录音后才能进行start、stop调用
+	if(rec&&Recorder.IsOpen()){
+        $.ajax({
+            type:"GET",
+            contentType:"application/json;charset=UTF-8",
+            url:"/start_record",
+            success:function(result){
+                console.log("success!")
+            },
+            error:function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+            }
+        })
+		reclog("已开始录音...");
+	}else{
+		reclog("未打开录音",1);
+	};
+};
+
+
+
+
+/**结束录音，得到音频文件**/
+function recStop(){
+	if(!(rec&&Recorder.IsOpen())){
+		reclog("未打开录音",1);
+		return;
+	};
+	 $.ajax({
+        type:"GET",
+        contentType:"application/json;charset=UTF-8",
+        url:"/stop_record",
+        success:function(result){
+            console.log("success!")
+            console.log(result)
+        },
+        error:function(e){
+        console.log(e.status);
+        console.log(e.responseText);
+        }
+     })
+    recBlob="1"
+    reclog("录音结束...");
+};
+
+
+function getmusic(){
+    if(!recBlob){
+		reclog("请先录音，然后停止后再生成音乐",1);
+		return;
+	};
+    $.ajax({
+        type:"GET",
+        contentType:"application/json;charset=UTF-8",
+        url:"/get_music",
+        success:function(result){
+            console.log("success!")
+            console.log(result)
+        },
+        error:function(e){
+        console.log(e.status);
+        console.log(e.responseText);
+        }
+     })
+    reclog("成功生成音乐...");
+}
+
+
+
+/**播放**/
+function recPlay(){
+	if(!recBlob){
+		reclog("请先录音，然后停止后再播放",1);
+		return;
+	};
+	/*
+	var cls=("a"+Math.random()).replace(".","");
+	reclog('播放中: <span class="'+cls+'"></span>');
+	var audio=document.createElement("audio");
+	audio.controls=true;
+	document.querySelector("."+cls).appendChild(audio);
+	//简单利用URL生成播放地址，注意不用了时需要revokeObjectURL，否则霸占内存
+	audio.src=(window.URL||webkitURL).createObjectURL(recBlob);
+	audio.play();
+
+	setTimeout(function(){
+		(window.URL||webkitURL).revokeObjectURL(audio.src);
+	},5000);
+
+	 */
+    $.ajax({
+        type:"GET",
+        contentType:"application/json;charset=UTF-8",
+        url:"/play_music",
+        success:function(result){
+            console.log("success!")
+            console.log(result)
+        },
+        error:function(e){
+        console.log(e.status);
+        console.log(e.responseText);
+        }
+     })
+    reclog("播放结束...");
+};
+
+
+
+
+
+
+//recOpen我们可以选择性的弹一个对话框：为了防止移动端浏览器存在第三种情况：用户忽略，并且（或者国产系统UC系）浏览器没有任何回调
+var showDialog=function(){
+	if(!/mobile/i.test(navigator.userAgent)){
+		return;//只在移动端开启没有权限请求的检测
+	};
+	dialogCancel();
+
+	//显示弹框，应该使用自己的弹框方式
+	var div=document.createElement("div");
+	document.body.appendChild(div);
+	div.innerHTML=(''
+		+'<div class="waitDialog" style="z-index:99999;width:100%;height:100%;top:0;left:0;position:fixed;background:rgba(0,0,0,0.3);">'
+			+'<div style="display:flex;height:100%;align-items:center;">'
+				+'<div style="flex:1;"></div>'
+				+'<div style="width:240px;background:#fff;padding:15px 20px;border-radius: 10px;">'
+					+'<div style="padding-bottom:10px;">录音功能需要麦克风权限，请允许；如果未看到任何请求，请点击忽略~</div>'
+					+'<div style="text-align:center;"><a onclick="waitDialogClick()" style="color:#0B1">忽略</a></div>'
+				+'</div>'
+				+'<div style="flex:1;"></div>'
+			+'</div>'
+		+'</div>');
+};
+var createDelayDialog=function(){
+	dialogInt=setTimeout(function(){//定时8秒后打开弹窗，用于监测浏览器没有发起权限请求的情况，在open前放置定时器利于收到了回调能及时取消（不管open是同步还是异步回调的）
+		showDialog();
+	},8000);
+};
+var dialogInt;
+var dialogCancel=function(){
+	clearTimeout(dialogInt);
+
+	//关闭弹框，应该使用自己的弹框方式
+	var elems=document.querySelectorAll(".waitDialog");
+	for(var i=0;i<elems.length;i++){
+		elems[i].parentNode.removeChild(elems[i]);
+	};
+};
+//recOpen弹框End
+</script>
+
+
+
+
+
+
+
+
+<!--以下这坨可以忽略-->
+<script>
+function reclog(s,color){
+	var now=new Date();
+	var t=("0"+now.getHours()).substr(-2)
+		+":"+("0"+now.getMinutes()).substr(-2)
+		+":"+("0"+now.getSeconds()).substr(-2);
+	var div=document.createElement("div");
+	var elem=document.querySelector(".reclog");
+	elem.insertBefore(div,elem.firstChild);
+	div.innerHTML='<div style="color:'+(!color?"":color==1?"red":color==2?"#0b1":color)+'">['+t+']'+s+'</div>';
+};
+window.onerror=function(message, url, lineNo, columnNo, error){
+	//https://www.cnblogs.com/xianyulaodi/p/6201829.html
+	reclog('<span style="color:red">【Uncaught Error】'+message+'<pre>'+"at:"+lineNo+":"+columnNo+" url:"+url+"\n"+(error&&error.stack||"不能获得错误堆栈")+'</pre></span>');
+};
+
+reclog(Tips);
+</script>
+
+<script>
+if(/mobile/i.test(navigator.userAgent)){
+	//移动端加载控制台组件
+	var elem=document.createElement("script");
+	elem.setAttribute("type","text/javascript");
+	elem.setAttribute("src","https://cdn.bootcss.com/eruda/1.5.4/eruda.min.js");
+	document.body.appendChild(elem);
+	elem.onload=function(){
+		eruda.init();
+	};
+};
+</script>
+
+
+
+
+
+</body>
+
+</html>

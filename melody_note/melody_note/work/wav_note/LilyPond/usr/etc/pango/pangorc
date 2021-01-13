@@ -1,0 +1,3 @@
+[Pango]
+ModuleFiles = $PANGO_PREFIX/etc/pango/pango.modules
+ModulesPath = $PANGO_PREFIX/lib/pango/1.6.0/modules

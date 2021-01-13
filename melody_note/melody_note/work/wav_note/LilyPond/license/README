@@ -1,0 +1,16 @@
+
+This installer contains an aggregration of different free software
+packages under different licenses: LGPL, GPL, BSD and BSD-like
+(without advertising clause) and MIT-like.  The licenses of these
+packages are in this directory.
+
+The source code for the individual packages can be found at
+
+    http://lilypond.org/gub/download
+
+This installer was made with GUB, the Grand Unified Builder, a mini
+source-based distribution and packaging system.  GUB is released under
+the GNU General Public License.  More information on GUB, including
+installation instructions, can be found at
+
+    http://lilypond.org/gub

@@ -1,0 +1,25 @@
+# Pango Modules file
+# Automatically generated file, do not edit
+#
+# ModulesPath = ${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules
+#
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-arabic-fc${PANGO_SO_EXTENSION} ArabicScriptEngineFc PangoEngineShape PangoRenderFc arabic:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-basic-fc${PANGO_SO_EXTENSION} BasicScriptEngineFc PangoEngineShape PangoRenderFc armenian:* bopomofo:* cherokee:* coptic:* cyrillic:* deseret:* ethiopic:* georgian:* gothic:* greek:* han:* hiragana:* katakana:* latin:* ogham:* old-italic:* runic:* canadian-aboriginal:* yi:* braille:* cypriot:* limbu:* osmanya:* shavian:* linear-b:* ugaritic:* common:
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-hangul-fc${PANGO_SO_EXTENSION} HangulScriptEngineFc PangoEngineShape PangoRenderFc hangul:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-hebrew-fc${PANGO_SO_EXTENSION} HebrewScriptEngineFc PangoEngineShape PangoRenderFc hebrew:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} devaScriptEngineFc PangoEngineShape PangoRenderFc devanagari:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} bengScriptEngineFc PangoEngineShape PangoRenderFc bengali:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} guruScriptEngineFc PangoEngineShape PangoRenderFc gurmukhi:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} gujrScriptEngineFc PangoEngineShape PangoRenderFc gujarati:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} oryaScriptEngineFc PangoEngineShape PangoRenderFc oriya:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} tamlScriptEngineFc PangoEngineShape PangoRenderFc tamil:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} teluScriptEngineFc PangoEngineShape PangoRenderFc telugu:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} kndaScriptEngineFc PangoEngineShape PangoRenderFc kannada:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} mlymScriptEngineFc PangoEngineShape PangoRenderFc malayalam:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-indic-fc${PANGO_SO_EXTENSION} sinhScriptEngineFc PangoEngineShape PangoRenderFc sinhala:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-khmer-fc${PANGO_SO_EXTENSION} KhmerScriptEngineFc PangoEngineShape PangoRenderFc khmer:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-syriac-fc${PANGO_SO_EXTENSION} SyriacScriptEngineFc PangoEngineShape PangoRenderFc syriac:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-thai-fc${PANGO_SO_EXTENSION} ThaiScriptEngineFc PangoEngineShape PangoRenderFc thai:* lao:*
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSION}/modules/pango-tibetan-fc${PANGO_SO_EXTENSION} TibetanScriptEngineFc PangoEngineShape PangoRenderFc tibetan:*
+
+${PANGO_PREFIX}/lib/pango/${PANGO_MODULE_VERSIOn}/modules/pango-basic-win32${PANGO_SO_EXTENSION} BasicScriptEngineWin32 PangoEngineShape PangoRenderWin32 common:

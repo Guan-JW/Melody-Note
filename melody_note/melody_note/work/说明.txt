@@ -1,0 +1,38 @@
+一 代码
+1. /sound_recorder
+    录音，生成wav文件保存在/record_wav
+2. /wav_note
+    提取音符，生成乐谱pdf保存在/note_pdf
+3. /compose
+    音符转乐曲，生成mid文件保存在compose_mid
+4. handle.py
+    rec = record.Recorder()录音，全局变量
+    transcriber = music_transcriber.MusicTranscriber(file_name)提取音符
+    composer = music.Music()音符转乐器音，全局变量
+
+二 文件
+1. /record_wav
+    录音保存的音频文件
+2. /note_pdf
+    乐谱pdf
+3. /compose_mid
+    音符转乐曲的结果（项目最终结果）
+
+三 在其他地方调用handle.py（按以下步骤调用函数）
+import handle
+1、设置乐曲名
+    handle.set_music_name("乐曲名")
+2、录音
+    handle.start_record()调用这个函数开始录音
+    handle.stop_record()录音结束后调用这个函数，生成音频 乐曲名.wav，保存在record_wav文件夹
+3、提取音符
+    melody = handle.get_notes()，生成五线谱 乐曲名.pdf 保存在note_pdf文件夹
+4、音符转乐器音（打括号的是非必要函数）
+（（1）可以设置乐器）
+    handle.choose_program(id)  // id为乐器代码，默认0：https://blog.csdn.net/ruyulin/article/details/84103186
+（2）音符生成乐器音
+    handle.create_melody(melody)，用第3步得到的melody生成乐器音 乐曲名.mid 保存在compose_mid文件夹
+（（3）播放）
+    handle.play_music()
+（（4）mid转wav，需要java环境）
+    handle.mid2wav()
