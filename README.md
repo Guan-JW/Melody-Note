@@ -4,7 +4,7 @@
 
 项目实现使用 `python3.7` , `django`, `lilypond`，`midi`。
 
-1. python manage.py runserver 0.0.0.0:8080 运行 $\text{django}$ 项目后打开http://127.0.0.1:8080/index/
+1. python manage.py runserver 0.0.0.0:8080 运行 `django` 项目后打开http://127.0.0.1:8080/index/
 
 2. 点击“打开录音”按钮，获得录音权限；
 
@@ -14,6 +14,6 @@
 
 5. 点击“播放”按钮即可听到钢琴曲；
 
-6. 有关保存文件请查看 $\text{\work}$文件夹下的 `说明.txt`。
+6. 有关保存文件请查看 `work` 文件夹下的 `说明.txt`。
 
    ![page.png](https://github.com/Guan-JW/Melody-Note/blob/main/pics/page.png?raw=true)
