@@ -108,7 +108,7 @@ class Music:
         clock = pygame.time.Clock()
         try:
             pygame.mixer.music.load(os.path.join(self.save_path,self.name+'.mid'))
-        except:
+        except pygame.error:
             import traceback
             print(traceback.format_exc())
         pygame.mixer.music.play()
